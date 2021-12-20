@@ -10,6 +10,6 @@
 
 ### `npm run build`
 
-### After unning the above command, Check out the newly created build folder & open index.html
+### After running the above command, Check out the newly created build folder & open index.html
 
 Make Sure Node & Npm are installed
