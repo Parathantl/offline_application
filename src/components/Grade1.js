@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import data from '../data/Grade1'; 
 import Card from "react-bootstrap/Card"
+import { Link } from "react-router-dom";
 
 export default function Grade1() {
 
-  const [grades,setGrades] = useState([]);
+  const [grades,setGrades] = useState(data);
+
+  const [name, setName] = useState('');
+  const [foundData, setFoundData] = useState([]);
 
   useEffect(() => {
     getData();
@@ -12,15 +16,43 @@ export default function Grade1() {
 
   const getData = () => {
     setGrades(data);
+    setFoundData(data)
+    console.log(data);
   }
+
+  const filter = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== '') {
+      const results = data.filter((grade) => {
+        return grade.title.toLowerCase().includes(keyword.toLowerCase());
+      });
+      setFoundData(results);
+    } else {
+      setFoundData(data);
+    }
+
+    setName(keyword);
+  };
   
   return (
 
     <div>
 
-      {
-        grades.map((grade, index) => {
-            return ( <div key={index}>
+      <input
+        type="search"
+        value={name}
+        onChange={filter}
+        className="input"
+        placeholder="Filter"
+      />
+
+      {foundData && foundData.length > 0 ? 
+
+      ( foundData.map((grade, index) => {
+        return (
+
+            <div key={index}>
                         <Card style={{ width: '18rem' }}>
                           {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                           <Card.Body>
@@ -29,11 +61,18 @@ export default function Grade1() {
                                 Subject: {grade.subject}<br/>
                                 Type: {grade.type}
                             </Card.Text>
+                            <Link to={{ 
+                              pathname: `/${grade.type}`,
+                              state: {
+                                title: grade.title,
+                                subject: grade.subject,
+                                type: grade.type
+                              }
+                            }}>
+                            Click here..</Link>
                           </Card.Body>
                         </Card>
-                    </div> )
-          })
-      }
+            </div>) })) : (<h1>No results found!</h1>) }
 
     </div>
 
