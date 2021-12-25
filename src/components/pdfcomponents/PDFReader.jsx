@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import Loader from './Loader';
 import { Document, Page, pdfjs } from 'react-pdf';
 import ControlPanel from './ControlPanel';
+import { useDispatch, useSelector } from "react-redux";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `./pdf.worker.js`;
+
+// "/assets/docs/test.pdf"
 
 const PDFReader = () => {
   const [scale, setScale] = useState(1.0);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { data } = useSelector(state => state.dataReducer);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
@@ -17,6 +23,9 @@ const PDFReader = () => {
 
   return (
     <div>
+      Title: {data.title} <br/>
+      Grade: {data.grade} <br/>
+      Subject: {data.subject} <br/>
       <Loader isLoading={isLoading} />
       <section
         id="pdf-section"
@@ -28,10 +37,10 @@ const PDFReader = () => {
           numPages={numPages}
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
-          file="/assets/docs/test.pdf"
+          file={data.filePath}
         />
         <Document
-          file="/assets/docs/test.pdf"
+          file={data.filePath}
           onLoadSuccess={onDocumentLoadSuccess}
         >
           <Page pageNumber={pageNumber} scale={scale} />

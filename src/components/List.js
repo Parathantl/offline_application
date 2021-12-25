@@ -2,21 +2,25 @@ import React, { useState, useEffect } from 'react'
 import data from '../data/List'; 
 import Card from "react-bootstrap/Card"
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from '../actions/data.actions';
 
 export default function Grade() {
 
-  const [grades,setGrades] = useState(data);
-
   const [name, setName] = useState('');
   const [foundData, setFoundData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData();
   }, [])
 
   const getData = () => {
-    setGrades(data);
     setFoundData(data)
+  }
+
+  const onClickData =(grade) => {
+    dispatch(setData(grade));
   }
 
   const filter = (e) => {
@@ -62,12 +66,7 @@ export default function Grade() {
                             </Card.Text>
                             <Link to={{ 
                               pathname: `/${grade.type}`,
-                              state: {
-                                title: grade.title,
-                                subject: grade.subject,
-                                type: grade.type
-                              }
-                            }}>
+                            }} onClick={() => {onClickData(grade)}}>
                             Click here..</Link>
                           </Card.Body>
                         </Card>

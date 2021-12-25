@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
 
-export default function audio() {
+export default function Audio() {
 
-    
+    const { data } = useSelector(state => state.dataReducer);
+
     return (
         <div>
-            <audio controls>
-            <source src="https://assets.coderrocketfuel.com/pomodoro-times-up.mp3" type="audio/mpeg">
+            Title: {data.title} <br/>
+            Grade: {data.grade} <br/>
+            Subject: {data.subject} <br/>
+            <audio controls> 
+            <source src={data.filePath} type="audio/mpeg">
                 </source>
             </audio>
         </div>
