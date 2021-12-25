@@ -1,6 +1,5 @@
 import './App.css';
-import Grade from './components/Grade'
-import Grade1 from './components/Grade1'
+import List from './components/List'
 import PDFReader from './components/pdfcomponents/PDFReader';
 import Audio from './components/audio'
 
@@ -17,8 +16,7 @@ function App() {
           <Routes>
             <Route path="/pdf" element={<PDFReader/>}/>
             <Route path="/audio" element={<Audio/>}/>
-            <Route path="/grade1" element={<Grade1/>}/>
-            <Route exact path="/" element={<Grade/>} />
+            <Route exact path="/" element={<List/>} />
           </Routes>
         </Router>
     </div>

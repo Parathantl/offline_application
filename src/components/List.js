@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import data from '../data/Grade1'; 
+import data from '../data/List'; 
 import Card from "react-bootstrap/Card"
 import { Link } from "react-router-dom";
 
-export default function Grade1() {
+export default function Grade() {
 
   const [grades,setGrades] = useState(data);
 
@@ -17,7 +17,6 @@ export default function Grade1() {
   const getData = () => {
     setGrades(data);
     setFoundData(data)
-    console.log(data);
   }
 
   const filter = (e) => {
